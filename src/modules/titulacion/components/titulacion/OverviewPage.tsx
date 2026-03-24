@@ -6,6 +6,7 @@ import { PageHeader } from '@core/components/PageHeader';
 import { KpiCard } from '@indicadores/components/indicadores/ui/KpiCard';
 import { ChartCard } from '@core/components/ChartCard';
 import { Globe, Filter, RefreshCcw } from 'lucide-react';
+import type { Kpi } from '@core/types';
 
 interface OverviewPageProps {
     allData: any[];
@@ -113,11 +114,11 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({
         };
     }, [filteredRows, allData]);
 
-    const kpis = [
-        { title: "Total Institución", value: metrics.totalInstitution.toLocaleString(), icon: "globe" as any, trendLabel: "Acumulado ESPOCH" },
-        { title: "Tesis en Segmento", value: metrics.totalSegment.toLocaleString(), icon: "bookOpen" as any, trendLabel: "Selección actual" },
-        { title: "Participación", value: `${metrics.weight}%`, icon: "award" as any, trendLabel: "Del peso institucional" },
-        { title: "Modalidad Top", value: metrics.modalityData[0]?.name || 'N/A', icon: "trophy" as any, trendLabel: "Tendencia de titulación" }
+    const kpis: Kpi[] = [
+        { title: "Total Institución", value: metrics.totalInstitution.toLocaleString(), icon: "globe", color: "blue", trendLabel: "Acumulado ESPOCH" },
+        { title: "Tesis en Segmento", value: metrics.totalSegment.toLocaleString(), icon: "bookOpen", color: "green", trendLabel: "Selección actual" },
+        { title: "Participación", value: `${metrics.weight}%`, icon: "award", color: "amber", trendLabel: "Del peso institucional" },
+        { title: "Modalidad Top", value: metrics.modalityData[0]?.name || 'N/A', icon: "trophy", color: "indigo", trendLabel: "Tendencia de titulación" }
     ];
 
     return (

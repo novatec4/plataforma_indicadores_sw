@@ -11,6 +11,7 @@ import { KpiCard } from '../ui/KpiCard';
 import { ExportButton } from '../ui/ExportButton';
 import { PageHeader } from '@core/components/PageHeader';
 import { CheckCircle2, Filter, Search, List, Table } from 'lucide-react';
+import type { Kpi } from '@core/types';
 
 interface QualityViewProps {
     qualityData: QualityIndicator[];
@@ -41,30 +42,34 @@ export const QualityView: React.FC<QualityViewProps> = ({ qualityData, qualityCa
     const [viewMode, setViewMode] = useState<'accordion' | 'table'>('accordion');
 
     // Calculate quality KPIs for consistency
-    const kpis = [
+    const kpis: Kpi[] = [
         { 
             title: "Total Indicadores", 
             value: qualityData.length.toString(), 
-            icon: "clipboardCheck" as any,
+            icon: "clipboardCheck",
+            color: "blue",
             trendLabel: "Definidos por el CACES" 
         },
         { 
             title: "Seleccionados", 
             value: selectedIndicators.length.toString(), 
-            icon: "filter" as any,
+            icon: "filter",
+            color: "amber",
             trendLabel: "Para comparación actual" 
         },
         { 
             title: "Categorías", 
             value: Object.keys(finalCategories).length.toString(), 
-            icon: "layers" as any,
+            icon: "layers",
+            color: "indigo",
             trendLabel: "Dimensiones de calidad" 
         },
         { 
             title: "Cumplimiento", 
             value: "85%", 
-            icon: "trendingUp" as any,
-            trend: "up" as any,
+            icon: "trendingUp",
+            color: "green",
+            trend: "up",
             trendValue: "2.4%",
             trendLabel: "Estimado global" 
         }
