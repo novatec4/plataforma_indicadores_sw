@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
+    "module": "ESNext",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "skipLibCheck": true,
+    "types": [
+      "node"
+    ],
+    "moduleResolution": "bundler",
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "allowJs": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@core/*": ["./src/core/*"],
+      "@evaluacion_docente/*": ["./src/modules/evaluacion_docente/*"],
+      "@titulacion/*": ["./src/modules/titulacion/*"],
+      "@vinculacion/*": ["./src/modules/vinculacion/*"],
+      "@indicadores/*": ["./src/modules/indicadores/*"]
+    },
+    "allowImportingTsExtensions": true,
+    "noEmit": true
+  }
+}

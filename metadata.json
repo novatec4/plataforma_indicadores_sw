@@ -1,0 +1,5 @@
+{
+  "name": "Google Sheets AI Dashboard Generator",
+  "description": "An intelligent dashboard generator that connects to a public Google Sheet, analyzes its data using Gemini, and automatically suggests and creates insightful data visualizations.",
+  "requestFramePermissions": []
+}
