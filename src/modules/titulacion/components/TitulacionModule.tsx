@@ -5,7 +5,6 @@ import { OverviewPage } from './titulacion/OverviewPage';
 import { SearchPage } from './titulacion/SearchPage';
 import { ExportPage } from './titulacion/ExportPage';
 import { InstitutionalComparisonPage } from './titulacion/InstitutionalComparisonPage';
-import { fetchSheetData } from '@titulacion/services/titulacion/googleSheetsService';
 import type { SheetData } from '@core/types';
 import type { Theme } from '@titulacion/types';
 import type { Page } from '@core/components/Sidebar';
@@ -25,16 +24,34 @@ const TitulacionModule: React.FC<TitulacionModuleProps> = ({ currentPage }) => {
       colors: ['#1e3a8a', '#2563eb', '#3b82f6', '#60a5fa', '#93c5fd']
   };
 
-  // LOAD ALL DATA ONCE FROM BIGQUERY (Instant local filtering after this)
+  // LOAD ALL DATA IN PARALLEL CHUNKS
   const loadInitialData = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
-      // The API is now configured in vite.config.ts to talk to BigQuery
-      const res = await fetch('/api/titulacion');
-      if (!res.ok) throw new Error('Error al conectar con BigQuery');
-      const data = await res.json();
-      setAllData(data);
+      const limit = 8000;
+      // Fetch up to 40,000 records in 5 parallel requests (Offsets: 0, 8k, 16k, 24k, 32k)
+      const offsets = [0, 8000, 16000, 24000, 32000];
+      
+      const fetchPromises = offsets.map(async (offset) => {
+          const res = await fetch(`/api/titulacion?limit=${limit}&offset=${offset}`);
+          if (!res.ok) throw new Error(`Error al conectar con BigQuery en el lote ${offset}`);
+          return res.json();
+      });
+
+      const results = await Promise.all(fetchPromises);
+      
+      let allRows: any[] = [];
+      let headers: string[] = [];
+
+      results.forEach(data => {
+          if (data.rows && data.rows.length > 0) {
+              allRows = [...allRows, ...data.rows];
+              if (headers.length === 0) headers = data.headers;
+          }
+      });
+
+      setAllData({ headers, rows: allRows });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error desconocido');
     } finally {
@@ -67,7 +84,7 @@ const TitulacionModule: React.FC<TitulacionModuleProps> = ({ currentPage }) => {
       };
   }, [allData]);
 
-  if (isLoading) return <div className="flex-1 flex items-center justify-center p-8 bg-slate-50"><Loader message="Cargando base de datos institucional..." /></div>;
+  if (isLoading) return <div className="flex-1 flex items-center justify-center p-8 bg-slate-50"><Loader message="Cargando base de datos institucional (esto puede tomar unos segundos)..." /></div>;
   if (error || !allData) return <div className="flex-1 flex items-center justify-center p-8"><ErrorDisplay message={error || 'No se pudieron cargar los datos'} onRetry={loadInitialData} /></div>;
 
   const renderCurrentPage = () => {

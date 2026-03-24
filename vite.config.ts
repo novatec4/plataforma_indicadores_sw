@@ -16,13 +16,15 @@ const bigQueryPlugin = () => ({
       
       if (url.pathname === '/api/titulacion') {
         try {
-          // Remove the WHERE clause to get the full institutional universe (25k+ rows)
+          const limit = parseInt(url.searchParams.get('limit') || '8000', 10);
+          const offset = parseInt(url.searchParams.get('offset') || '0', 10);
+
           const query = `
             SELECT 
               Facultad, Titulo, Anio, Autor, Materia, Categoria, Resumen, Descripcion, Palabras_Clave as PalabrasClave 
             FROM \`clear-aurora-451516-c5.espoch_db.tesis\` 
             ORDER BY Anio DESC
-            LIMIT 40000
+            LIMIT ${limit} OFFSET ${offset}
           `;
 
           const [rows] = await bq.query({ query });
