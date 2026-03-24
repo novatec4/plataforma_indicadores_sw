@@ -60,7 +60,7 @@ export const GeneralAnalysisPage: React.FC<GeneralAnalysisPageProps> = ({
                 />
             </FilterPanel>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
                 <StatCard 
                     icon={<Star className="w-6 h-6" />}
                     title="Promedio General"
