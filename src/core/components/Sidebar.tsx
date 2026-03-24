@@ -36,13 +36,14 @@ export type Page =
     | 'vinculacion-reporte'
     // Titulación
     | 'titulacion-dashboard'
+    | 'titulacion-comparison'
     | 'titulacion-search'
     | 'titulacion-export';
 
 interface NavItem {
     id: Page;
     title: string;
-    icon: React.FC<React.SVGProps<SVGSVGElement>>;
+    icon: React.ElementType;
 }
 
 const moduleNavItems: Record<AppModule, NavItem[]> = {

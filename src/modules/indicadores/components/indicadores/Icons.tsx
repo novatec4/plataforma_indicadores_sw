@@ -21,7 +21,7 @@ import {
 } from '@heroicons/react/24/outline';
 
 // A map of icon names to their corresponding Heroicons components
-const ICONS: { [key: string]: React.ElementType<React.SVGProps<SVGSVGElement>> } = {
+const ICONS: { [key: string]: React.ElementType } = {
   lightbulb: LightBulbIcon,
   loader: ArrowPathIcon,
   alertTriangle: ExclamationTriangleIcon,
@@ -48,5 +48,5 @@ interface IconProps extends React.SVGProps<SVGSVGElement> {
 
 export const Icon: React.FC<IconProps> = ({ name, strokeWidth = 1.5, ...props }) => {
   const HeroIcon = ICONS[name] || QuestionMarkCircleIcon;
-  return <HeroIcon strokeWidth={strokeWidth} {...props} />;
+  return <HeroIcon strokeWidth={strokeWidth} {...(props as any)} />;
 };

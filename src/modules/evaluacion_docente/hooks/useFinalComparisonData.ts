@@ -62,7 +62,7 @@ export const useFinalComparisonData = (dataRows: any[] | null, filters: { select
             return acc;
         }, {} as Record<string, any>);
 
-        const allChartData = Object.values(pivotedData);
+        const allChartData = Object.values(pivotedData) as any[];
         
         // Filter based on selected criteria
         const chartData = filters.selectedCriteria.length > 0 

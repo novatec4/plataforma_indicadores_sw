@@ -44,7 +44,6 @@ const IndicadoresModule: React.FC<IndicadoresModuleProps> = ({ currentPage }) =>
     const renderCurrentPage = () => {
         switch (currentPage) {
             case 'indicadores-dashboard':
-            case 'academic': 
                 return (
                     <AcademicView 
                         academicData={data.combinedAcademicData} 
@@ -52,11 +51,10 @@ const IndicadoresModule: React.FC<IndicadoresModuleProps> = ({ currentPage }) =>
                     />
                 );
             case 'indicadores-trends':
-            case 'quality':
                 return (
                     <QualityView 
                         qualityData={data.qualityIndicatorsData} 
-                        qualityIndicatorCategories={data.qualityIndicatorCategories} 
+                        qualityCategories={data.qualityIndicatorCategories} 
                     />
                 );
             default:

@@ -30,8 +30,22 @@ const safeToNumber = (value: any): number => {
 
 export const usePeriodComparisonData = (data: SheetData | null, filters: { periodA: string, periodB: string }) => {
     return useMemo(() => {
+        const fallback = {
+            chartData: [], 
+            tableData: {}, 
+            criteria: [], 
+            previousPeriodName: '', 
+            currentPeriodName: '', 
+            kpis: {
+                currentPeriodAverage: 0,
+                previousPeriodAverage: 0,
+                biggestImprovement: { name: 'N/A', change: 0 },
+                biggestDecline: { name: 'N/A', change: 0 },
+            }
+        };
+
         if (!data || !data.rows || data.rows.length === 0 || !filters.periodA || !filters.periodB) {
-            return { chartData: [], tableData: {}, criteria: [], previousPeriodName: '', currentPeriodName: '', kpis: {} };
+            return fallback;
         }
         
         const firstRow = data.rows[0];
@@ -40,7 +54,7 @@ export const usePeriodComparisonData = (data: SheetData | null, filters: { perio
         const puntuacionKey = findKey(firstRow, 'puntuacion');
 
         if (!paoKey || !criterioKey || !puntuacionKey) {
-             return { chartData: [], tableData: {}, criteria: [], previousPeriodName: '', currentPeriodName: '', kpis: {} };
+             return fallback;
         }
 
         const previousPeriod = filters.periodA;
@@ -61,7 +75,7 @@ export const usePeriodComparisonData = (data: SheetData | null, filters: { perio
             return acc;
         }, {} as Record<string, any>);
         
-        const chartData = Object.values(pivotedData);
+        const chartData = Object.values(pivotedData) as any[];
         const criteria = Object.keys(pivotedData);
 
         const tableData = {
@@ -103,8 +117,8 @@ export const usePeriodComparisonData = (data: SheetData | null, filters: { perio
         const kpis = {
             currentPeriodAverage: validCriteriaCount > 0 ? currentPeriodSum / validCriteriaCount : 0,
             previousPeriodAverage: validCriteriaCount > 0 ? previousPeriodSum / validCriteriaCount : 0,
-            biggestImprovement,
-            biggestDecline,
+            biggestImprovement: biggestImprovement.name !== 'N/A' ? biggestImprovement : { name: 'N/A', change: 0 },
+            biggestDecline: biggestDecline.name !== 'N/A' ? biggestDecline : { name: 'N/A', change: 0 },
         };
 
         return {

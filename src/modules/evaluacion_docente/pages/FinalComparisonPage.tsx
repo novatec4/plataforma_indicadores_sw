@@ -15,6 +15,7 @@ interface FinalComparisonPageProps {
     filterOptions: { finalComparisonCriteria: string[] };
     onFilterChange: (newFilters: Partial<{ selectedCriteria: string[] }>) => void;
     onResetFilters: () => void;
+    onAnalyze: (data: any, title: string) => void;
 }
 
 export const FinalComparisonPage: React.FC<FinalComparisonPageProps> = ({ 
@@ -22,7 +23,8 @@ export const FinalComparisonPage: React.FC<FinalComparisonPageProps> = ({
     filters,
     filterOptions,
     onFilterChange,
-    onResetFilters
+    onResetFilters,
+    onAnalyze
 }) => {
     // Restore the correct hook for data processing
     const { chartData, seriesNames, kpis } = useFinalComparisonData(data ? data.rows : null, filters);

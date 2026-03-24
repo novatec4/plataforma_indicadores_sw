@@ -148,7 +148,7 @@ const VinculacionModule: React.FC<VinculacionModuleProps> = ({ currentPage }) =>
         const year = match ? match[1] : 'Desconocido';
         if (year !== 'Desconocido') yearCounts[year] = (yearCounts[year] || 0) + 1;
     });
-    return Object.keys(yearCounts).sort().map(year => ({ periodo: year, promedio: yearCounts[year] }));
+    return Object.keys(yearCounts).sort().map(year => ({ periodo: year, promedio: yearCounts[year], trend: yearCounts[year] }));
   }, [filteredRows]);
 
   const handleFilterChange = (newFilters: Partial<typeof globalFilters>) => setGlobalFilters(prev => ({ ...prev, ...newFilters }));
@@ -171,7 +171,6 @@ const VinculacionModule: React.FC<VinculacionModuleProps> = ({ currentPage }) =>
   const renderCurrentPage = () => {
     switch (currentPage) {
         case 'vinculacion-dashboard':
-        case 'vinculacion-resumen-general':
             return (
                 <div className="space-y-8 pb-12 animate-fade-in">
                     <PageHeader 

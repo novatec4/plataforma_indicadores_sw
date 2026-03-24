@@ -90,7 +90,6 @@ const TitulacionModule: React.FC<TitulacionModuleProps> = ({ currentPage }) => {
   const renderCurrentPage = () => {
     switch (currentPage) {
         case 'titulacion-dashboard':
-        case 'overview':
             return (
                 <OverviewPage 
                     allData={allData.rows}
@@ -99,7 +98,6 @@ const TitulacionModule: React.FC<TitulacionModuleProps> = ({ currentPage }) => {
                 />
             );
         case 'titulacion-search':
-        case 'search':
             return (
                 <SearchPage 
                     allInstitutionData={allData.rows} 
@@ -114,7 +112,6 @@ const TitulacionModule: React.FC<TitulacionModuleProps> = ({ currentPage }) => {
                 />
             );
         case 'titulacion-export':
-        case 'export':
             return (
                 <ExportPage 
                     allData={allData.rows} 
