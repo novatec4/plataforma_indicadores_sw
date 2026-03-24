@@ -58,14 +58,14 @@ export const DetailModal: React.FC<DetailModalProps> = ({ isOpen, onClose, crite
 
     return (
         <div 
-            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900 bg-opacity-70 transition-opacity duration-300" 
+            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900 bg-opacity-70 transition-opacity duration-300 p-2 sm:p-4" 
             role="dialog" 
             aria-modal="true" 
             aria-labelledby="detail-modal-title"
         >
-            <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col m-4 transform transition-all duration-300 scale-95 opacity-0 animate-scale-in">
-                <div className="flex items-center justify-between p-4 border-b border-slate-200">
-                    <h3 id="detail-modal-title" className="text-lg font-bold text-slate-800 truncate pr-4">
+            <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col transform transition-all duration-300 scale-95 opacity-0 animate-scale-in">
+                <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-200">
+                    <h3 id="detail-modal-title" className="text-base sm:text-lg font-bold text-slate-800 truncate pr-4">
                         Detalle: {criterionData.Componente}
                     </h3>
                     <button 
@@ -73,37 +73,39 @@ export const DetailModal: React.FC<DetailModalProps> = ({ isOpen, onClose, crite
                         className="p-2 rounded-full text-slate-500 hover:bg-slate-100 transition-colors flex-shrink-0"
                         aria-label="Cerrar modal"
                     >
-                        <CloseIcon className="h-6 w-6" />
+                        <CloseIcon className="h-5 w-5 sm:h-6 sm:w-6" />
                     </button>
                 </div>
-                <div className="p-6 overflow-y-auto">
-                   <ResponsiveContainer width="100%" height={300}>
-                         <BarChart 
-                            data={chartData} 
-                            margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
-                        >
-                            <CartesianGrid strokeDasharray="3 3" stroke={gridColor} vertical={false} />
-                            <XAxis 
-                                dataKey="name"
-                                tick={{ fill: '#64748b', fontSize: 11, fontWeight: 500 }}
-                                interval={0} 
-                                axisLine={{ stroke: axisColor }}
-                                tickLine={false}
-                            />
-                            <YAxis 
-                                domain={[0, 120]} 
-                                tick={{ fill: '#64748b', fontSize: 11, fontWeight: 500 }} 
-                                axisLine={{ stroke: axisColor }}
-                                label={{ value: 'Puntuación', angle: -90, position: 'insideLeft', fill: '#64748b', style: { textAnchor: 'middle', fontSize: '12px' }, offset: 10 }}
-                            />
-                            <Tooltip content={<CustomTooltip />} cursor={{fill: 'rgba(241, 245, 249, 0.6)'}} />
-                            <Bar dataKey="puntuacion">
-                                {chartData.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={entry.fill} />
-                                ))}
-                            </Bar>
-                        </BarChart>
-                    </ResponsiveContainer>
+                <div className="p-4 sm:p-6 overflow-x-auto overflow-y-auto">
+                    <div className="min-w-[400px]">
+                        <ResponsiveContainer width="100%" height={300}>
+                            <BarChart 
+                                data={chartData} 
+                                margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" stroke={gridColor} vertical={false} />
+                                <XAxis 
+                                    dataKey="name"
+                                    tick={{ fill: '#64748b', fontSize: 10, fontWeight: 500 }}
+                                    interval={0} 
+                                    axisLine={{ stroke: axisColor }}
+                                    tickLine={false}
+                                />
+                                <YAxis 
+                                    domain={[0, 120]} 
+                                    tick={{ fill: '#64748b', fontSize: 11, fontWeight: 500 }} 
+                                    axisLine={{ stroke: axisColor }}
+                                    label={{ value: 'Puntuación', angle: -90, position: 'insideLeft', fill: '#64748b', style: { textAnchor: 'middle', fontSize: '12px' }, offset: 10 }}
+                                />
+                                <Tooltip content={<CustomTooltip />} cursor={{fill: 'rgba(241, 245, 249, 0.6)'}} />
+                                <Bar dataKey="puntuacion">
+                                    {chartData.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={entry.fill} />
+                                    ))}
+                                </Bar>
+                            </BarChart>
+                        </ResponsiveContainer>
+                    </div>
                 </div>
             </div>
             <style>{`

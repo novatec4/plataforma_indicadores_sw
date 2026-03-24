@@ -32,26 +32,28 @@ export const FinalComparisonChart: React.FC<FinalComparisonChartProps> = ({ char
 
     return (
         <div className="w-full">
-            <div className="w-full h-80">
-                <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={chartData} margin={{ top: 5, right: 30, left: 10, bottom: 5 }}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
-                        <XAxis dataKey="criterio" tick={{ fill: '#64748b', fontSize: 12 }} axisLine={{ stroke: '#cbd5e1' }} tickLine={false} />
-                        <YAxis 
-                            domain={[84, 102]}
-                            tickCount={10}
-                            axisLine={{ stroke: '#cbd5e1' }} 
-                            tickLine={{ stroke: '#cbd5e1' }} 
-                            tick={{ fill: '#64748b', fontSize: 12 }}
-                            label={{ value: 'Puntuación', angle: -90, position: 'insideLeft', fill: '#64748b', style: { textAnchor: 'middle' }, offset: 0 }}
-                        />
-                        <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(241, 245, 249, 0.6)' }} />
-                        <Legend wrapperStyle={{ paddingLeft: '40px' }} />
-                        {seriesNames.map((series, index) => (
-                             <Bar key={series} dataKey={series} name={series.replace(/_/g, ' ')} fill={COLORS[index % COLORS.length]} />
-                        ))}
-                    </BarChart>
-                </ResponsiveContainer>
+            <div className="w-full overflow-x-auto overflow-y-hidden">
+                <div className="h-80 min-w-[700px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={chartData} margin={{ top: 5, right: 30, left: 10, bottom: 5 }}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
+                            <XAxis dataKey="criterio" tick={{ fill: '#64748b', fontSize: 12 }} axisLine={{ stroke: '#cbd5e1' }} tickLine={false} />
+                            <YAxis 
+                                domain={[84, 102]}
+                                tickCount={10}
+                                axisLine={{ stroke: '#cbd5e1' }} 
+                                tickLine={{ stroke: '#cbd5e1' }} 
+                                tick={{ fill: '#64748b', fontSize: 12 }}
+                                label={{ value: 'Puntuación', angle: -90, position: 'insideLeft', fill: '#64748b', style: { textAnchor: 'middle' }, offset: 0 }}
+                            />
+                            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(241, 245, 249, 0.6)' }} />
+                            <Legend wrapperStyle={{ paddingLeft: '40px' }} />
+                            {seriesNames.map((series, index) => (
+                                 <Bar key={series} dataKey={series} name={series.replace(/_/g, ' ')} fill={COLORS[index % COLORS.length]} />
+                            ))}
+                        </BarChart>
+                    </ResponsiveContainer>
+                </div>
             </div>
         </div>
     );

@@ -56,39 +56,41 @@ export const PeriodComparisonChart: React.FC<PeriodComparisonChartProps> = ({
 
     return (
         <div className="w-full">
-            <div className="w-full h-72">
-                <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={chartData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }} barGap={8}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
-                        <XAxis dataKey="criterio" tick={false} axisLine={false} tickLine={false} />
-                        <YAxis 
-                            domain={[87, 97]}
-                            tickCount={11}
-                            axisLine={{ stroke: '#cbd5e1' }} 
-                            tickLine={{ stroke: '#cbd5e1' }} 
-                            tick={{ fill: '#64748b', fontSize: 12 }}
-                            label={{ value: 'Puntuación', angle: -90, position: 'insideLeft', fill: '#64748b', style: { textAnchor: 'middle' }, offset: 10 }}
-                        />
-                        <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(241, 245, 249, 0.6)' }} />
-                        <Bar dataKey={previousPeriodName} fill={COLORS.previous} name={previousPeriodName.replace(/_/g,' ')} />
-                        <Bar dataKey={currentPeriodName} fill={COLORS.current} name={currentPeriodName.replace(/_/g,' ')} />
-                    </BarChart>
-                </ResponsiveContainer>
+            <div className="w-full overflow-x-auto overflow-y-hidden">
+                <div className="h-72 min-w-[600px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={chartData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }} barGap={8}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={false} />
+                            <XAxis dataKey="criterio" tick={false} axisLine={false} tickLine={false} />
+                            <YAxis 
+                                domain={[87, 97]}
+                                tickCount={11}
+                                axisLine={{ stroke: '#cbd5e1' }} 
+                                tickLine={{ stroke: '#cbd5e1' }} 
+                                tick={{ fill: '#64748b', fontSize: 12 }}
+                                label={{ value: 'Puntuación', angle: -90, position: 'insideLeft', fill: '#64748b', style: { textAnchor: 'middle' }, offset: 10 }}
+                            />
+                            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(241, 245, 249, 0.6)' }} />
+                            <Bar dataKey={previousPeriodName} fill={COLORS.previous} name={previousPeriodName.replace(/_/g,' ')} />
+                            <Bar dataKey={currentPeriodName} fill={COLORS.current} name={currentPeriodName.replace(/_/g,' ')} />
+                        </BarChart>
+                    </ResponsiveContainer>
+                </div>
             </div>
-            <div className="mt-6 overflow-x-auto">
-                <table className="w-full border-collapse text-sm text-left">
+            <div className="mt-6 overflow-x-auto pb-4">
+                <table className="border-collapse text-sm text-left min-w-[600px] w-full">
                     <thead>
                         <tr className="bg-slate-50">
                             <th className="p-3 border-b border-slate-200 font-semibold text-slate-600 w-[250px]">Período</th>
-                            {criteria.map(c => <th key={c} className="p-3 border-b border-slate-200 min-w-[200px] text-center font-semibold text-slate-600">{c}</th>)}
+                            {criteria.map(c => <th key={c} className="p-3 border-b border-slate-200 min-w-[150px] text-center font-semibold text-slate-600">{c}</th>)}
                         </tr>
                     </thead>
                     <tbody className="bg-white">
                         <tr className="hover:bg-slate-50 transition-colors">
                             <td className="p-3 border-b border-slate-200 font-medium text-slate-700">
                                 <div className="flex items-center gap-2">
-                                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS.previous }}></div>
-                                    <span>{previousPeriodName.replace(/_/g,' ')}</span>
+                                    <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: COLORS.previous }}></div>
+                                    <span className="truncate">{previousPeriodName.replace(/_/g,' ')}</span>
                                 </div>
                             </td>
                             {criteria.map(c => <td key={c} className="p-3 border-b border-slate-200 text-center text-slate-600">{tableData[previousPeriodName]?.[c] != null ? safeToNumber(tableData[previousPeriodName][c]).toFixed(2).replace('.',',') : 'N/A'}</td>)}
@@ -96,8 +98,8 @@ export const PeriodComparisonChart: React.FC<PeriodComparisonChartProps> = ({
                         <tr className="hover:bg-slate-50 transition-colors">
                             <td className="p-3 border-b border-slate-200 font-medium text-slate-700">
                                 <div className="flex items-center gap-2">
-                                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: COLORS.current }}></div>
-                                    <span>{currentPeriodName.replace(/_/g,' ')}</span>
+                                    <div className="w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: COLORS.current }}></div>
+                                    <span className="truncate">{currentPeriodName.replace(/_/g,' ')}</span>
                                 </div>
                             </td>
                             {criteria.map(c => <td key={c} className="p-3 border-b border-slate-200 text-center text-slate-600">{tableData[currentPeriodName]?.[c] != null ? safeToNumber(tableData[currentPeriodName][c]).toFixed(2).replace('.',',') : 'N/A'}</td>)}

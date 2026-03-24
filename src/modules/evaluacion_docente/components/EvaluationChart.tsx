@@ -64,46 +64,47 @@ export const EvaluationChart: React.FC<EvaluationChartProps> = ({ chartData, onC
     const axisColor = '#cbd5e1';
     const gridColor = '#f1f5f9';
 
-    // Calculate height based on chartData length to avoid empty space
     const chartHeight = Math.max(450, chartData.length * 40 + 200);
 
   return (
-    <div className="w-full" style={{ height: chartHeight }}>
-        <ResponsiveContainer width="100%" height="100%">
-             <BarChart 
-                data={chartData} 
-                margin={{ top: 20, right: 30, left: 20, bottom: 100 }}
-                onClick={handleChartClick}
-                barGap={4}
-            >
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={gridColor} />
-                <XAxis 
-                    dataKey="Componente" 
-                    height={80}
-                    tick={<CustomizedAxisTick />}
-                    interval={0} 
-                    axisLine={{ stroke: axisColor }}
-                    tickLine={{ stroke: axisColor }}
-                />
-                <YAxis 
-                    domain={[0, 110]} 
-                    tick={{ fill: '#64748b', fontSize: 11, fontWeight: 600 }} 
-                    axisLine={{ stroke: axisColor }}
-                    tickLine={{ stroke: axisColor }}
-                    label={{ value: 'Puntaje (%)', angle: -90, position: 'insideLeft', fill: '#94a3b8', style: { textAnchor: 'middle', fontSize: '10px', fontWeight: 'bold' } }}
-                />
-                <Tooltip content={<CustomTooltip />} cursor={{fill: '#f8fafc'}} />
-                <Legend 
-                    verticalAlign="top" 
-                    align="right" 
-                    iconType="circle"
-                    wrapperStyle={{ paddingTop: '0px', paddingBottom: '40px', fontSize: '11px', fontWeight: 'bold' }} 
-                />
-                {normalizedDataKeys.map(key => (
-                    <Bar key={key} dataKey={key} name={evaluationKeys[key]} fill={COLORS[key]} radius={[4, 4, 0, 0]} cursor="pointer" />
-                ))}
-            </BarChart>
-        </ResponsiveContainer>
+    <div className="w-full overflow-x-auto overflow-y-hidden" style={{ height: chartHeight }}>
+        <div style={{ minWidth: '700px', height: '100%' }}>
+             <ResponsiveContainer width="100%" height="100%">
+                 <BarChart 
+                    data={chartData} 
+                    margin={{ top: 20, right: 30, left: 20, bottom: 100 }}
+                    onClick={handleChartClick}
+                    barGap={4}
+                >
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={gridColor} />
+                    <XAxis 
+                        dataKey="Componente" 
+                        height={80}
+                        tick={<CustomizedAxisTick />}
+                        interval={0} 
+                        axisLine={{ stroke: axisColor }}
+                        tickLine={{ stroke: axisColor }}
+                    />
+                    <YAxis 
+                        domain={[0, 110]} 
+                        tick={{ fill: '#64748b', fontSize: 11, fontWeight: 600 }} 
+                        axisLine={{ stroke: axisColor }}
+                        tickLine={{ stroke: axisColor }}
+                        label={{ value: 'Puntaje (%)', angle: -90, position: 'insideLeft', fill: '#94a3b8', style: { textAnchor: 'middle', fontSize: '10px', fontWeight: 'bold' } }}
+                    />
+                    <Tooltip content={<CustomTooltip />} cursor={{fill: '#f8fafc'}} />
+                    <Legend 
+                        verticalAlign="top" 
+                        align="right" 
+                        iconType="circle"
+                        wrapperStyle={{ paddingTop: '0px', paddingBottom: '40px', fontSize: '11px', fontWeight: 'bold' }} 
+                    />
+                    {normalizedDataKeys.map(key => (
+                        <Bar key={key} dataKey={key} name={evaluationKeys[key]} fill={COLORS[key]} radius={[4, 4, 0, 0]} cursor="pointer" />
+                    ))}
+                </BarChart>
+            </ResponsiveContainer>
+        </div>
     </div>
   );
 };
