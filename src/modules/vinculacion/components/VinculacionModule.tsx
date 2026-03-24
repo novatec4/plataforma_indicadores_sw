@@ -186,7 +186,7 @@ const VinculacionModule: React.FC<VinculacionModuleProps> = ({ currentPage }) =>
                         <SelectFilter label="Estado" value={globalFilters.estado} onChange={(e) => handleFilterChange({ estado: e.target.value })} options={['Todos', ...filterOptions.estados]} />
                     </FilterPanel>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
                         <MetricCard title="Total de Proyectos" value={metrics.total.toString()} icon={Briefcase} trendLabel="Iniciativas registradas" />
                         <MetricCard title="Total de Programas" value={metrics.totalProgramas.toString()} icon={Layers} trendLabel="Ejes estratégicos" />
                         <MetricCard title="Presupuesto Planificado" value={formatCurrency(metrics.presupuestoPlanificado)} icon={Wallet} trendLabel="Inversión proyectada" />
@@ -235,7 +235,7 @@ const VinculacionModule: React.FC<VinculacionModuleProps> = ({ currentPage }) =>
                         <SelectFilter label="Programa" value={globalFilters.programa} onChange={(e) => handleFilterChange({ programa: e.target.value })} options={['Todos', ...filterOptions.programas]} />
                     </FilterPanel>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
                         <MetricCard title="Total Proyectos" value={metrics.total.toString()} icon={Briefcase} trendLabel="En el segmento seleccionado" />
                         <MetricCard title="Programas Activos" value={metrics.totalProgramas.toString()} icon={Layers} trendLabel="Ejes involucrados" />
                         <MetricCard title="Inversión Proyectada" value={formatCurrency(metrics.presupuestoPlanificado)} icon={Wallet} trendLabel="Presupuesto total del segmento" />

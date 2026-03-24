@@ -117,7 +117,7 @@ export const InstitutionalComparisonPage: React.FC<InstitutionalComparisonPagePr
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
                 <KpiCard title="Volumen Software" value={stats.softwareVolume.toLocaleString()} icon="award" color="blue" trendLabel="Tesis registradas" />
                 <KpiCard title="vs. Promedio" value={`${performanceVsAvg}%`} icon="trendingUp" color="green" trend={Number(performanceVsAvg) >= 100 ? 'up' : 'down'} trendValue={`${Math.abs(Number(performanceVsAvg) - 100).toFixed(1)}%`} />
                 <KpiCard title="Ranking Global" value={`#${stats.softwareRank}`} icon="target" color="amber" trendLabel={`De ${stats.totalCareers} carreras`} />

@@ -166,7 +166,7 @@ export const QualityView: React.FC<QualityViewProps> = ({ qualityData, qualityCa
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
                 {kpis.map(kpi => <KpiCard key={kpi.title} {...kpi} />)}
             </div>
             
