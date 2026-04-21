@@ -93,10 +93,19 @@ export const useAcademicData = (
 
     const [selectedYear, setSelectedYear] = useState<string>('all');
 
-    const periodOptions = useMemo(() => 
-        combinedAcademicData.filter(p => (p.valorRetencion ?? 0) > 0 || (p.valorTitulacion ?? 0) > 0),
-        [combinedAcademicData]
-    );
+    const periodOptions = useMemo(() => {
+        // Filter periods that have valid data and sort them chronologically
+        const validPeriods = combinedAcademicData.filter(p => 
+            (p.valorRetencion ?? 0) > 0 || (p.valorTitulacion ?? 0) > 0
+        );
+        
+        // Sort by codigoPeriodo to ensure chronological order
+        return validPeriods.sort((a, b) => {
+            const codeA = a.codigoPeriodo || '';
+            const codeB = b.codigoPeriodo || '';
+            return codeA.localeCompare(codeB);
+        });
+    }, [combinedAcademicData]);
 
     const filteredAcademicData = useMemo(() => {
         if (selectedPeriod === 'all') return combinedAcademicData;
