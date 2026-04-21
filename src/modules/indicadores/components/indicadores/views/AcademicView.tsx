@@ -72,6 +72,7 @@ export const AcademicView: React.FC<AcademicViewProps> = ({ academicData, gradua
                         <label htmlFor="period-select" className="text-sm font-bold text-slate-700 px-2">Periodo:</label>
                         <select
                             id="period-select"
+                            key={periodOptions.length}
                             value={selectedPeriod}
                             onChange={(e) => setSelectedPeriod(e.target.value)}
                             className="bg-white border border-slate-300 rounded-md shadow-sm py-1.5 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm font-semibold text-slate-700"
