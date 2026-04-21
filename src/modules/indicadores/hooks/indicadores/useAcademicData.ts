@@ -94,13 +94,9 @@ export const useAcademicData = (
     const [selectedYear, setSelectedYear] = useState<string>('all');
 
     const periodOptions = useMemo(() => {
-        // Filter periods that have valid data and sort them chronologically
-        const validPeriods = combinedAcademicData.filter(p => 
-            (p.valorRetencion ?? 0) > 0 || (p.valorTitulacion ?? 0) > 0
-        );
-        
+        // Show all periods from Google Sheets, sorted chronologically
         // Sort by codigoPeriodo to ensure chronological order
-        return validPeriods.sort((a, b) => {
+        return [...combinedAcademicData].sort((a, b) => {
             const codeA = a.codigoPeriodo || '';
             const codeB = b.codigoPeriodo || '';
             return codeA.localeCompare(codeB);
